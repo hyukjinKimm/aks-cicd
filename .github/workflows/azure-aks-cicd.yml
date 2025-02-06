@@ -29,6 +29,7 @@ jobs:
       with:
         username: ${{ secrets.QUAY_USERNAME }}
         password: ${{ secrets.QUAY_PASSWORD }}
+        registry: quay.io
 
     - name: Build and push Docker image to Quay.io
       run: |
