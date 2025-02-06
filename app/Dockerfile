@@ -1,18 +1,18 @@
-# Use the official Node.js image from Docker Hub
+# Node.js 애플리케이션을 위한 Dockerfile
 FROM node:14
 
-# Set the working directory in the container
+# 작업 디렉토리 설정
 WORKDIR /usr/src/app
 
-# Copy package.json and install dependencies
+# 패키지 설치
 COPY package*.json ./
 RUN npm install
 
-# Copy the rest of the application files
+# 애플리케이션 코드 복사
 COPY . .
 
-# Expose the port the app will run on
-EXPOSE 3000
+# 애플리케이션 포트 설정
+EXPOSE 8080
 
-# Start the Node.js application
-CMD ["npm", "start"]
+# 애플리케이션 실행
+CMD [ "node", "app.js" ]
