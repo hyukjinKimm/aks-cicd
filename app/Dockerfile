@@ -1,5 +1,5 @@
 # Node.js 애플리케이션을 위한 Dockerfile
-FROM node:16
+FROM node:18
 
 # 작업 디렉토리 설정
 WORKDIR /usr/src/app
