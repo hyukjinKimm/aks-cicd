@@ -42,21 +42,23 @@ jobs:
     needs: build
     steps:
     - name: Set up Azure CLI
-      uses: azure/setup-azure-cli@v1
+      uses: azure/azure-cli-action@v1
       with:
         azure-cli-version: '2.27.0'
-
+  
     - name: Azure login
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-
+  
     - name: Deploy to AKS
       run: |
         # AKS 클러스터에 연결하여 배포합니다.
         az aks get-credentials --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} --name ${{ secrets.AKS_CLUSTER_NAME }}
         
-        # Kubernetes에 배포하고 서비스를 생성합니다.
-        export DOCKER_USER=${{ secrets.DOCKER_USER }}
+        # Kubernetes 클러스터에 배포 및 서비스 생성
         envsubst < k8s/deployment.yaml | kubectl apply -f -
         kubectl apply -f k8s/service.yaml
+  
+        # 배포 상태 확인
+        kubectl rollout status deployment/${{ secrets.AKS_DEPLOYMENT_NAME }}
