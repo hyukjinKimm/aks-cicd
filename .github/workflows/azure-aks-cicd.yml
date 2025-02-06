@@ -29,14 +29,11 @@ jobs:
       with:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-      
-    - name: Build Docker image
-      run: |
-        docker buildx build -f ./app/Dockerfile -t docker.io/${{ secrets.DOCKER_USERNAME }}/node:v1 ./app
 
-    - name: Push Docker image
+    - name: Build and Push Docker image
       run: |
-        docker push docker.io/${{ secrets.DOCKER_USERNAME }}/node:v1
+        docker buildx build --no-cache -f ./app/Dockerfile -t docker.io/${{ secrets.DOCKER_USERNAME }}/node:v1 ./app
+
         
   deploy:
     runs-on: ubuntu-latest
