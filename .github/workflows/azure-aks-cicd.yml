@@ -38,7 +38,7 @@ jobs:
     - name: Push Docker image
       run: |
         # Docker 이미지를 푸시합니다.
-        docker push $docker.io/{{ secrets.DOCKER_USER }}/node:v1
+        docker push docker.io/${{ secrets.DOCKER_USERNAME }}/node:v1
 
   deploy:
     runs-on: ubuntu-latest
