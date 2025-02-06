@@ -27,7 +27,7 @@ jobs:
     - name: Build Docker image
       run: |
         # Docker 이미지를 빌드하고 변수로 지정된 이미지를 태그합니다.
-        docker build -t $docker.io/{{ secrets.DOCKER_USER }}/node:v1 .
+        docker buildx build -f ./app/Dockerfile -t docker.io/${{ secrets.DOCKER_USERNAME }}/node:v1 ./app
 
     - name: Log in to Docker Hub
       uses: docker/login-action@v2
